@@ -26,6 +26,7 @@ class LoginUserView(APIView):
         serializer.is_valid(raise_exception=True)
         serializer.validated_data["name"]
         if user.objects.filter( name = serializer.validated_data['name'] ,password = serializer.validated_data['password']).exists():
+            # user_date = UserRegisterSerializer()
             return Response(serializer.data)
         else:
             # return Response(status=status.HTTP_400_BAD_REQUEST)

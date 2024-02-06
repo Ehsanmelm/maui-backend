@@ -8,3 +8,6 @@ class user(models.Model):
     password = models.CharField(max_length = 255  , default= None)
     age = models.CharField(max_length =255 , null = True , default = None)
     phone = models.CharField(max_length =255 , null =True , default = None)
+
+    def __str__(self) -> str:
+        return f"{self.email}"
