@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import EventModel , EventUserModel 
-from core.models import user
+from core.models import UserModel
 
 class CreateEventSerializer(serializers.ModelSerializer):
     event_maker = serializers.CharField(read_only = True)
@@ -9,7 +9,7 @@ class CreateEventSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def create(self, validated_data):
-        event_maker = user.objects.get(id=self.context['id'])
+        event_maker = UserModel.objects.get(id=self.context['id'])
         title = self.validated_data['title']
         description = self.validated_data['description']
 
@@ -33,7 +33,7 @@ class EventUserSerializer(serializers.ModelSerializer):
 
     #     return event
     def create(self, validated_data):
-        event_picker = user.objects.get(id=self.context['id'])
+        event_picker = UserModel.objects.get(id=self.context['id'])
         events_data = validated_data.pop('event', [])  # Remove 'event' from validated_data
 
         event_user = EventUserModel.objects.create(event_picker=event_picker, **validated_data)
