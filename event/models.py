@@ -10,7 +10,8 @@ class EventModel(models.Model):
     event_maker = models.ForeignKey(UserModel , on_delete = models.CASCADE)
 
     # created_at = models.DateTimeField( auto_now_add = True  , null = True)
-    expired_at = models.DateField( null = True)
+    # expired_at = models.DateTimeField( null = True)
+    expired_at = models.DateTimeField( null = True)
 
     capacity = models.PositiveIntegerField(default = None , null = True)
     location = models.CharField(max_length = 255 , default = None)
