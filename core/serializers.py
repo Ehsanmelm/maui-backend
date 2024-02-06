@@ -1,20 +1,20 @@
 from rest_framework import serializers , status
 from rest_framework.response import Response
-from .models import user
+from .models import UserModel
 
 
 class UserRegisterSerializer(serializers.ModelSerializer):
     class Meta:
-        model = user
+        model = UserModel
         fields = "__all__"
 
     # def che
 
 class LoginUserSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(read_only = True)
     class Meta:
-        model = user
-        fields = ['id' , 'name' , 'password']
-        # fields = '__all__'
+        model = UserModel
+        fields = ['id' , 'email' , 'password']
 
     # def create(self,request):
     #     try:

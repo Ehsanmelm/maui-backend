@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .models import user 
+from .models import UserModel 
 from .serializers import UserRegisterSerializer , LoginUserSerializer
 
 # Create your views here.
@@ -11,7 +11,7 @@ class RegisterUserView(APIView):
     def post(self , request):
         serializer = UserRegisterSerializer(data= request.data )
         serializer.is_valid(raise_exception = True)
-        if user.objects.filter(email = serializer.validated_data['email']).exists():
+        if UserModel.objects.filter(email = serializer.validated_data['email']).exists():
             return Response(" there is a same account with this email")
         
         else:
@@ -22,12 +22,17 @@ class RegisterUserView(APIView):
 
 class LoginUserView(APIView):
     def post(self,request):
-        serializer = LoginUserSerializer(data= request.data , context = {'request':request})
+        serializer = LoginUserSerializer(data= request.data )
         serializer.is_valid(raise_exception=True)
-        serializer.validated_data["name"]
-        if user.objects.filter( name = serializer.validated_data['name'] ,password = serializer.validated_data['password']).exists():
-            # user_date = UserRegisterSerializer()
-            return Response(serializer.data)
-        else:
-            # return Response(status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+
+            loged_user= UserModel.objects.get( email = serializer.validated_data['email'] ,password = serializer.validated_data['password'])
+            
+            context = {}
+            context['id'] = loged_user.id
+            context['email'] = loged_user.email
+
+            return Response(context)
+        except UserModel.DoesNotExist:
             return Response(0)
