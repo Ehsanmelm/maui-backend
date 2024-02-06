@@ -4,7 +4,6 @@ from core.models import UserModel
 
 class CreateEventSerializer(serializers.ModelSerializer):
     event_maker = serializers.CharField(read_only = True)
-    created_at = serializers.CharField(read_only = True)
     class Meta:
         model = EventModel
         fields = '__all__'
