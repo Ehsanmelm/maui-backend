@@ -1,5 +1,6 @@
 from django.db import models
 from core.models import UserModel
+from time import timezone
 # Create your models here.
 
 
@@ -8,9 +9,9 @@ class EventModel(models.Model):
     description = models.TextField()
     event_maker = models.ForeignKey(UserModel , on_delete = models.CASCADE)
 
-    # created_at = models.DateField(auto_now_add = True)
+    created_at = models.DateTimeField( auto_now_add = True  , null = True)
 
-    capacity = models.PositiveIntegerField(default = None)
+    capacity = models.PositiveIntegerField(default = None , null = True)
     location = models.CharField(max_length = 255 , default = None)
 
 
