@@ -2,12 +2,12 @@ from django.db import models
 
 # Create your models here.
 
-class user(models.Model):
+class UserModel(models.Model):
     email = models.EmailField( default =None)
-    name = models.CharField(max_length =255)
+    first_name = models.CharField(max_length =255 , default = None)
+    last_name = models.CharField(max_length =255 , default = None)
     password = models.CharField(max_length = 255  , default= None)
-    age = models.CharField(max_length =255 , null = True , default = None)
-    phone = models.CharField(max_length =255 , null =True , default = None)
+
 
     def __str__(self) -> str:
         return f"{self.email}"
