@@ -16,8 +16,17 @@ class CreateEventSerializer(serializers.ModelSerializer):
 
         return event
     
+
+    
+class EventDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = EventModel
+        fields = "__all__"
+
+
 class EventUserSerializer(serializers.ModelSerializer):
     event_picker = serializers.CharField(read_only =True)
+    event = EventDetailSerializer(many = True)
     class Meta:
         model = EventUserModel
         fields = '__all__'
@@ -47,8 +56,3 @@ class EventUserSerializer(serializers.ModelSerializer):
                     raise serializers.ValidationError('event is full')
             
         return event_user
-    
-class EventDetailSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = EventModel
-        fields = "__all__"
