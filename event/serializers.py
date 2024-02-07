@@ -34,7 +34,7 @@ class EventUserSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         event_picker = UserModel.objects.get(id=self.context['id'])
-        events_data = validated_data.pop('event', [])  # Remove 'event' from validated_data
+        events_data = validated_data.pop('events', [])  # Remove 'event' from validated_data
 
         event_user , is_created = EventUserModel.objects.get_or_create(event_picker=event_picker, **validated_data)
 
@@ -42,7 +42,7 @@ class EventUserSerializer(serializers.ModelSerializer):
 
             selected_event = EventModel.objects.get(id= event.id)
 
-            if selected_event in event_user.event.all():
+            if selected_event in event_user.events.all():
                 raise serializers.ValidationError("this event is in you selected event")
             
             else:
@@ -50,7 +50,7 @@ class EventUserSerializer(serializers.ModelSerializer):
 
                     selected_event.capacity -= 1
                     selected_event.save()
-                    event_user.event.add(event)  # Add each event to the many-to-many relationship
+                    event_user.events.add(event)  # Add each event to the many-to-many relationship
 
                 else:
                     raise serializers.ValidationError('event is full')

@@ -23,7 +23,7 @@ class EventModel(models.Model):
 
 class EventUserModel(models.Model):
     event_picker = models.ForeignKey(UserModel , on_delete=models.CASCADE , default = None)
-    event = models.ManyToManyField(EventModel)
+    events = models.ManyToManyField(EventModel)
 
     def __str__(self) -> str:
         return f"{self.event}"
