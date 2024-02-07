@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .models import EventModel, EventUserModel
-from .serializers import CreateEventSerializer , EventUserSerializer
+from .serializers import CreateEventSerializer , EventUserSerializer , EventDetailSerializer
 
 # Create your views here.
 
@@ -49,3 +49,10 @@ class ShowEventsView(APIView):
         seriailzer = CreateEventSerializer(queryset , many= True)
 
         return Response(seriailzer.data)
+    
+class EventDetailView(APIView):
+    def get(self,request, id):
+        queryset = EventModel.objects.get(id=id)
+        serializer = EventDetailSerializer(queryset)
+
+        return Response(serializer.data)
