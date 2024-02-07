@@ -26,7 +26,7 @@ class EventDetailSerializer(serializers.ModelSerializer):
 
 class EventUserSerializer(serializers.ModelSerializer):
     event_picker = serializers.CharField(read_only =True)
-    event = EventDetailSerializer(many = True)
+    # event = EventDetailSerializer(many = True)
     class Meta:
         model = EventUserModel
         fields = '__all__'
