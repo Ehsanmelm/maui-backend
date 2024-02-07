@@ -47,3 +47,8 @@ class EventUserSerializer(serializers.ModelSerializer):
                     raise serializers.ValidationError('event is full')
             
         return event_user
+    
+class EventDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = EventModel
+        fields = "__all__"
