@@ -45,7 +45,7 @@ class EvetnUserView(APIView):
     
 class ShowEventsView(APIView):
     def get(self,request):
-        queryset = EventModel.objects.all()
+        queryset = EventModel.objects.all().order_by('expired_at')
         seriailzer = CreateEventSerializer(queryset , many= True)
 
         return Response(seriailzer.data)
