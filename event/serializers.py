@@ -56,3 +56,4 @@ class EventUserSerializer(serializers.ModelSerializer):
                     raise serializers.ValidationError('event is full')
             
         return event_user
+    
