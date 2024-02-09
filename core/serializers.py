@@ -16,6 +16,10 @@ class LoginUserSerializer(serializers.ModelSerializer):
         model = UserModel
         fields = ['id' , 'email' , 'password']
 
+class UserDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserModel
+        fields = '__all__'
     # def create(self,request):
     #     try:
     #         loged_user = user.objects.get(id = self.context["request"].id , name = self.context['request'].name ,password = self.context['request'].password )

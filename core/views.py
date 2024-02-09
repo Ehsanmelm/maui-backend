@@ -3,7 +3,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .models import UserModel 
-from .serializers import UserRegisterSerializer , LoginUserSerializer
+from .serializers import UserRegisterSerializer , LoginUserSerializer , UserDetailSerializer
 
 # Create your views here.
 
@@ -36,3 +36,10 @@ class LoginUserView(APIView):
             return Response(context)
         except UserModel.DoesNotExist:
             return Response(0)
+
+class UserDetailView(APIView):
+    def get(self,request , id):
+        queryset = UserModel.objects.get(id=id)
+        serializer = UserDetailSerializer(queryset)
+
+        return Response(serializer.data)
